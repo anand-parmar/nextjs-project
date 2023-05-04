@@ -1,0 +1,53 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: DEV Node.js CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    environment: Dev
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+
+      - name: Create .env file
+        uses: ozaytsev86/create-env-file@v1
+        with:
+          ENV_AUTH_PORT: 4000
+          ENV_EQB_PORT: 4001
+          ENV_DOCKET_PORT: 4002
+          ENV_FEATURES_PORT: 4003
+
+      - name: "Build project"
+        run: |
+          yarn install
+          yarn build
+          rm -r node_modules
+
+      - name: AWS CodeDeploy
+        uses: anand-parmar/aws-codedeploy-action@v1
+        with:
+          aws_access_key: ${{ secrets.AWS_SECRET_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          aws_region: us-east-1
+          codedeploy_name: frontend
+          codedeploy_group: Dev
+          codedeploy_register_only: true
+          s3_bucket: fronten-deploy-dev
+          s3_folder: test
+          max_polling_iterations: 60
+          directory: ./
