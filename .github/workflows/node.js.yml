@@ -30,7 +30,7 @@ jobs:
       - name: "Build project"
         run: |
           yarn install
-          yarn build --force
+          yarn build
           rm -r node_modules
 
       - name: AWS CodeDeploy
