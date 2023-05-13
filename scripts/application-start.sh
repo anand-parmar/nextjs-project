@@ -1,17 +1,4 @@
 #!/bin/bash
-which npm
-
-echo $USER
-
-cd /var/frontend/
-
-rm -r node_modules/
-
-npm install --global yarn
-yarn install
-
-pwd
-
 pm2 describe app > /dev/null
 RUNNING=$?
 
