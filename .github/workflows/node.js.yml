@@ -38,7 +38,7 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_SECRET_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          aws_region: us-east-1
+          aws_region: ap-south-1
           codedeploy_name: frontend
           codedeploy_group: Dev
           codedeploy_register_only: true
