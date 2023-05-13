@@ -41,7 +41,7 @@ jobs:
           aws_region: ap-south-1
           codedeploy_name: frontend
           codedeploy_group: Dev
-          codedeploy_register_only: true
+          codedeploy_register_only: false
           s3_bucket: myfrontendbuild
           s3_folder: dev
           max_polling_iterations: 0
