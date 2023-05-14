@@ -7,8 +7,7 @@ nvm install 16.14.2
 npm install --global yarn
 npm install pm2 -g
 
-ln -s $(which npm) /usr/local/bin/npm
-ln -s $(which node) /usr/local/bin/node
-ln -s $(which yarn) /usr/local/bin/yarn
-ln -s $(which pm2) /usr/local/bin/pm2
-ln -s $(which yarn) /usr/local/bin/yarn
+ln -sv $(which npm) /usr/local/bin/npm
+ln -sv $(which node) /usr/local/bin/node
+ln -sv $(which yarn) /usr/local/bin/yarn
+ln -sv $(which pm2) /usr/local/bin/pm2
